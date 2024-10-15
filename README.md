@@ -3,4 +3,4 @@ Performing a DDOS attack onto any server that is not yours or you don’t have p
 
 # USAGE
 Remember to change the IP addresses and port number<br>
-Run 'python3 DDOS_attck.py'
+Run 'python3 DDOS_attack.py'
